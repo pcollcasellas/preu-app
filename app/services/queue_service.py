@@ -59,7 +59,15 @@ class QueueService:
     
     def get_next_batch_with_metadata(self, supermarket_name: str) -> tuple[List[int], List[ProductScanQueue]]:
         """Get next batch of products with metadata for processing"""
-        products = self.get_next_batch(supermarket_name, 1000)  # Get a reasonable batch size
+        # Get total products in queue for this supermarket
+        stats = self.queue_repo.get_queue_stats(supermarket_name)
+        total_products = stats.get("total_products", 0)
+        
+        # Calculate batch size as fraction of total (1/48 by default)
+        from app.config import settings
+        batch_size = max(1, int(total_products * settings.batch_size_fraction))
+        
+        products = self.get_next_batch(supermarket_name, batch_size)
         product_ids = [p.product_id for p in products]
         return product_ids, products
     
