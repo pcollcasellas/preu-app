@@ -22,7 +22,9 @@ class BaseScraper(ABC):
         self.concurrent_requests = settings.concurrent_requests
         
         # Create HTTP client with proper headers
+        # Note: follow_redirects defaults to True in httpx (max_redirects=20)
         self.client = httpx.AsyncClient(
+            follow_redirects=True,  # Explicitly enable redirects (default but making it clear)
             timeout=self.timeout,
             headers={
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

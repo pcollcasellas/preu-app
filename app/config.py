@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     mercadona_sitemap_url: str = "https://tienda.mercadona.es/sitemap.xml"
     mercadona_api_url: str = "https://tienda.mercadona.es/api/products"
     
+    # Lidl Configuration
+    lidl_base_url: str = "https://www.lidl.es"
+    lidl_sitemap_url: str = "https://www.lidl.es/sitemap-product-1.xml.gz"
+    
     # Scraping Configuration
     batch_size_fraction: float = 0.020833333  # 1/48
     batch_duration_minutes: int = 10

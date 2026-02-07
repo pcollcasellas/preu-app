@@ -12,6 +12,7 @@ from app.services.queue_service import QueueService
 from app.scrapers.base import BaseScraper
 from app.scrapers.bonpreu import BonpreuScraper
 from app.scrapers.mercadona import MercadonaScraper
+from app.scrapers.lidl import LidlScraper
 from app.config import settings
 # Note: scheduler is passed as parameter to avoid circular import
 
@@ -37,7 +38,8 @@ class ScrapingService:
         # Available scrapers
         self.scrapers = {
             "bonpreu": BonpreuScraper,
-            "mercadona": MercadonaScraper
+            "mercadona": MercadonaScraper,
+            "lidl": LidlScraper
         }
     
     async def refresh_sitemap(self, supermarket_name: str) -> Dict[str, Any]:
